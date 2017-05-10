@@ -1,7 +1,10 @@
-# TODO
+# README
 
-## Simple TODO Management
+# Installation
 
-### Installation
-
-Clone the repo and open index.html in your browser.
+- Clone the repo.
+- Create a copy of the env file with `cp .env.example_alt .env`
+- In the project root `touch database/database.sqlite`
+- Migrate the database with `php artisan migrate`
+- Start the server with `php artisan serve`
+- $$$ Profit
