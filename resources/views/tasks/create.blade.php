@@ -5,6 +5,16 @@
 		<div class="col-sm-12 col-md-6 col-md-offset-3">
 			<h2>Create a Task</h2>
 
+			@if (count($errors) > 0)
+			    <div class="alert alert-danger">
+			        <ul>
+			            @foreach ($errors->all() as $error)
+			                <li>{{ $error }}</li>
+			            @endforeach
+			        </ul>
+			    </div>
+			@endif
+
 			<form class="" action="{{ route('tasks.store') }}" method="POST">
 				{{ csrf_field() }}
 
@@ -14,7 +24,7 @@
 				</div>
 
 				<div class="form-group">
-					<label for="deadline">Deadline</label>
+					<label for="deadline">Deadline (YYYY-MM-DD)</label>
 					<input class="form-control" type="date" id="dead_at" name="dead_at" value="{{ old('dead_at') }}"/>
 				</div>
 

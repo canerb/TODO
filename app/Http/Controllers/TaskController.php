@@ -6,6 +6,8 @@ use App\Task;
 
 use Illuminate\Http\Request;
 
+use Validator;
+
 class TaskController extends Controller
 {
     /**
@@ -41,7 +43,19 @@ class TaskController extends Controller
      */
     public function store(Request $request)
     {
-        // TODO: Validation...
+        // Validate the form input.
+        $validator = Validator::make($request->all(), [
+            'description' => 'required',
+            'dead_at'     => 'required|date_format:Y-m-d',
+            'progress'    => 'required|numeric|between:0,100'
+        ]);
+
+        if ($validator->fails()) {
+            return redirect()->route('tasks.create')
+                        ->withErrors($validator)
+                        ->withInput();
+        }
+
         Task::create($request->all());
 
         return redirect()->route('tasks.index');
@@ -77,7 +91,19 @@ class TaskController extends Controller
      */
     public function update(Request $request, Task $task)
     {
-        // TODO: Validation...
+        // Validate the form input.
+        $validator = Validator::make($request->all(), [
+            'description' => 'required',
+            'dead_at'     => 'required|date_format:Y-m-d',
+            'progress'    => 'required|numeric|between:0,100'
+        ]);
+
+        if ($validator->fails()) {
+            return redirect()->route('tasks.edit', ['id' => $task->id])
+                        ->withErrors($validator)
+                        ->withInput();
+        }
+
         $task->update($request->all());
 
         return redirect()->route('tasks.index');
