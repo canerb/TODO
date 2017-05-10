@@ -11,6 +11,11 @@
 |
 */
 
+// Task Routes
+//
+// Ressource method index will be mapped to root and show won't be used for tasks.
+Route::get('/', 'TaskController@index')->name('tasks.index');
+Route::resource('/tasks', 'TaskController', ['except' => 'index', 'show']);
 
 Route::get('/imprint', function() {
 	return view('imprint');
